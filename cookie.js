@@ -11,9 +11,10 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));  //设置cookie 到期时间
     // toGMTString() 方法可根据格林威治时间 (GMT) 把 Date 对象转换为字符串，并返回结果。
     var expires = "expires=" + d.toGMTString();
-    document.cookie = cname + "=" + cvalue + ";" + expires;
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";" +"path:/";
 }
 
+// 获取cookie
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(";");
@@ -25,6 +26,7 @@ function getCookie(cname) {
     return "";  // 如果没有，则返回为空
 }
 
+// 检查 cookie
 function checkCookie() {
     var user = getCookie("username");
     if (user != "") {
@@ -37,5 +39,16 @@ function checkCookie() {
         }
     }
 }
+
+// 删除 cookie
+//删除cookies
+function delCookie(name) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie(name);
+    if (cval != null)
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+}
+
 
 
